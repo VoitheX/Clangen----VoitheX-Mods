@@ -3,7 +3,7 @@ from random import randrange
 from scripts.cat.cats import *
 from scripts.clan import HERBS
 from scripts.conditions import medical_cats_condition_fulfilled, get_amount_cat_for_one_medic
-from scripts.cat_relations.relation_events import *
+from scripts.events_module.relation_events import *
 from scripts.game_structure.load_cat import *
 from scripts.events_module.condition_events import Condition_Events
 from scripts.events_module.death_events import Death_Events
@@ -208,33 +208,45 @@ class Events():
                     text = ''
                     if game.clan.deputy is not None and game.clan.leader is not None:
                         if game.clan.deputy.dead and not leader_dead and not leader_exiled:
-                            text = f"{game.clan.leader.name} chooses {Cat.all_cats[random_cat].name} to take over as deputy. They know that {game.clan.deputy.name} would approve."
+                            text = f"{game.clan.leader.name} chooses {Cat.all_cats[random_cat].name} to take over " \
+                                   f"as deputy. They know that {game.clan.deputy.name} would approve."
                             involved_cats.extend([game.clan.leader.ID, game.clan.deputy.ID])
                         if not game.clan.deputy.dead and not game.clan.deputy.outside:
-                            text = f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. The retired deputy nods their approval."
+                            text = f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. " \
+                                   f"The retired deputy nods their approval."
                             # No other cat are involved here.
                         if game.clan.deputy.outside:
-                            text = f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. The Clan hopes that {game.clan.deputy.name} would approve."
+                            text = f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. " \
+                                   f"The Clan hopes that {game.clan.deputy.name} would approve."
                             involved_cats.append(game.clan.deputy.ID)
                     elif leader_dead or leader_exiled:
                         if game.clan.leader:
-                            text = f"Since losing {game.clan.leader.name} the Clan has been directionless. They all turn to {Cat.all_cats[random_cat].name} with hope for the future."
+                            text = f"Since losing {game.clan.leader.name} the Clan has been directionless. " \
+                                   f"They all turn to {Cat.all_cats[random_cat].name} with hope for the future."
                             involved_cats.append(game.clan.leader.ID)
                         else:
-                            text = f"Without a leader, the Clan has been directionless. They all turn to {Cat.all_cats[random_cat].name} with hope for the future."
+                            text = f"Without a leader, the Clan has been directionless. " \
+                                   f"They all turn to {Cat.all_cats[random_cat].name} with hope for the future."
                             # No additional involved cats.
                     else:
                         if Cat.all_cats[random_cat].trait == 'bloodthirsty':
-                            text = f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. They look at the Clan leader with an odd glint in their eyes."
+                            text = f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. " \
+                                   f"They look at the Clan leader with an odd glint in their eyes."
                             # No additional involved cats
 
                         else:
                             possible_events = [
-                                f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. The Clan yowls their name in approval.",
-                                f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. Some of the older Clan members question the wisdom in this choice.",
-                                f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. They hold their head up high and promise to do their best for the Clan.",
-                                f"{game.clan.leader.name} has been thinking deeply all day who they would respect and trust enough to stand at their side and at sunhigh makes the announcement that {Cat.all_cats[random_cat].name} will be the Clan's new deputy.",
-                                f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. They pray to StarClan that they are the right choice for the Clan.",
+                                f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. "
+                                f"The Clan yowls their name in approval.",
+                                f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. "
+                                f"Some of the older Clan members question the wisdom in this choice.",
+                                f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. "
+                                f"They hold their head up high and promise to do their best for the Clan.",
+                                f"{game.clan.leader.name} has been thinking deeply all day who they would "
+                                f"respect and trust enough to stand at their side and at sunhigh makes the "
+                                f"announcement that {Cat.all_cats[random_cat].name} will be the Clan's new deputy.",
+                                f"{Cat.all_cats[random_cat].name} has been chosen as the new deputy. They pray to "
+                                f"StarClan that they are the right choice for the Clan.",
                             ]
                             # No additional involved cats
                             text = choice(possible_events)
@@ -246,7 +258,7 @@ class Events():
                     # game.ceremony_events_list.append(text)
                     break
                 if random_count == 30:
-                    text = 'The Clan decides that no cat is fit to be deputy'
+                    text = 'The Clan decides that no cat is fit to be deputy.'
                     game.cur_events_list.append(Single_Event(text, "ceremony"))
                     # game.ceremony_events_list.append(text)
             else:
@@ -366,10 +378,29 @@ class Events():
             insert = "medicine cats"
         herbs = game.clan.herbs
 
-        if len(herbs.keys()) >= 15:
+        herbs_lost = []
+        for herb in herbs:
+            if herbs[herb] > 25:
+                herbs.update({herb: 25})
+                herbs_lost.append(herb)
+
+        if herbs_lost:
+            if len(herbs_lost) == 1 and herbs_lost[0] != 'cobwebs':
+                insert2 = f"much {herbs_lost[0]}"
+            elif len(herbs_lost) == 1 and herbs_lost[0] == 'cobwebs':
+                insert2 = f"many {herbs_lost[0]}"
+            elif len(herbs_lost) == 2:
+                insert2 = f"much {herbs_lost[0]} and {herbs_lost[1]}"
+            else:
+                insert2 = f"much {', '.join(herbs_lost[:-1])}, and {herbs_lost[-1]}"
+            text = f"The herb stores have too {insert2}. The excess is given back to the earth."
+            game.herb_events_list.append(text)
+
+        if sum(herbs.values()) >= 50:
             chance = 2
         else:
             chance = 5
+
         if len(herbs.keys()) >= 10 and not int(random.random() * chance):
             index = randrange(1, int(len(herbs.keys()) / 2))
             count = 0
@@ -454,7 +485,7 @@ class Events():
 
             possible_events = []
             if self.at_war is True:
-                possible_events.append(f"{self.enemy_clan}Clan breaks into the camp and ravages the herb stores, "
+                possible_events.append(f"{self.enemy_clan} breaks into the camp and ravages the herb stores, "
                                        f"taking some for themselves and destroying the rest.")
             possible_events.extend([
                 f"Some sort of pest got into the herb stores and completely destroyed them. The {insert} will have to "
@@ -485,7 +516,6 @@ class Events():
                 ])
             game.clan.herbs.clear()
             chosen_event = choice(possible_events)
-            print(possible_events)
             game.cur_events_list.append(Single_Event(chosen_event, "health"))
             game.herb_events_list.append(chosen_event)
 
@@ -641,7 +671,7 @@ class Events():
                 text = ''
                 if game.clan.deputy.trait == 'bloodthirsty':
                     text = f'{str(game.clan.deputy.name)} has become the new leader. ' \
-                           f'They stare down at their clanmates with unsheathed claws, ' \
+                           f'They stare down at their Clanmates with unsheathed claws, ' \
                            f'promising a new era for the clans.'
                 else:
                     c = choice([1, 2, 3])
@@ -801,7 +831,7 @@ class Events():
                 ])
                 if cat.trait == 'bloodthirsty':
                     ceremony.extend([
-                                        str(cat.name.prefix) + " has worked long and hard to earn their warrior name but " + str(
+                                        str(cat.name.prefix) + "paw has worked long and hard to earn their warrior name but " + str(
                                             game.clan.leader.name) + " can't help but to shiver in unease as they name them " + str(
                                             cat.name) + " after their " + str(random_honor) + "."])
             else:
@@ -835,17 +865,18 @@ class Events():
                     ])
 
             if cat.is_disabled() and not leader_dead:
-                involved_cats.append(game.clan.leader.ID)
-                ceremony.extend([
-                    str(cat.name) + " is confidently telling " +
-                    str(game.clan.leader.name) +
-                    " that they can do anything any cat can. " +
-                    str(game.clan.leader.name) + " assigns " +
-                    mentor_name +
-                    " as their mentor to make sure that happens.",
-                    "Standing proud and tall before their new mentor " + str(
-                        cat.name) + " promises " + mentor_name + " that together they will prove to everyone that they will be the best warrior."
-                ])
+                if str(game.clan.leader.name) != mentor_name:
+                    involved_cats.append(game.clan.leader.ID)
+                    ceremony.extend([
+                        str(cat.name) + " is confidently telling " +
+                        str(game.clan.leader.name) +
+                        " that they can do anything any cat can. " +
+                        str(game.clan.leader.name) + " assigns " +
+                        mentor_name +
+                        " as their mentor to make sure that happens.",
+                        "Standing proud and tall before their new mentor " + str(
+                            cat.name) + " promises " + mentor_name + " that together they will prove to everyone that they will be the best warrior."
+                    ])
 
         elif (promoted_to == 'apprentice') and cat.mentor is None:
             ceremony.extend(["Newly-made apprentice " + str(cat.name) +
@@ -880,7 +911,7 @@ class Events():
                      "paw their full name of " + str(cat.name) + ". StarClan gives their blessing and the stars "
                      "twinkle in celebration.", 
                      f"With the stars softly shining and lighting their pelts, the senior medicine cat gives "
-                     f"{cat.name.prefix} their full name of {cat.name}. They both share the rest of the night "
+                     f"{cat.name.prefix}paw their full name of {cat.name}. They both share the rest of the night "
                      "with StarClan, celebrating their good fortune in having another medicine cat."])
 
         elif promoted_to == 'elder' and not leader_dead:
@@ -988,7 +1019,7 @@ class Events():
                                 f'{name} received a cool {acc_singular} from {other_name} '
                                 f'and decided to wear it on their pelt.',
                                 f'{name} found a pretty {acc_singular} and decided to wear it on their pelt.',
-                                f'A clanmate gave {name} some {acc_plural} and they decided to wear them.'
+                                f'A Clanmate gave {name} some {acc_plural} and they decided to wear them.'
                             ])
                     elif cat.accessory in ["RED FEATHERS", "BLUE FEATHERS",
                                            "JAY FEATHERS"] and "NOTAIL" in cat.scars:
@@ -1005,13 +1036,13 @@ class Events():
                                          ])
                     else:
                         acc_text.extend([f'{name} finds a(n) {acc_singular} and decides to wear it on their pelt.',
-                                         f'A clanmate gives {name} a pretty {acc_singular} '
+                                         f'A Clanmate gives {name} a pretty {acc_singular} '
                                          f'and they decide to wear it on their pelt.',
                                          f'{name} finds a(n) {acc_singular} '
                                          f'while out on a walk and decides to wear it on their pelt.',
                                          f'{name} finds {acc_plural} '
                                          f'fascinating and decides to wear some on their pelt.',
-                                         f'A clanmate gives {name} a pretty {acc_singular} '
+                                         f'A Clanmate gives {name} a pretty {acc_singular} '
                                          f'to adorn their pelt as a gift.',
                                          f'{other_name} gives {name} a pretty {acc_singular} '
                                          f'and they decide to wear it on their pelt.'
@@ -1021,7 +1052,7 @@ class Events():
                         acc_text.extend([
                             f'{name} received a {acc_singular} from {other_name} and decided to wear it on their pelt.',
                             f'{name} found a {acc_singular} and decided to wear it on their pelt.',
-                            f'A clanmate gave {name} a {acc_singular} and they decided to wear it.'
+                            f'A Clanmate gave {name} a {acc_singular} and they decided to wear it.'
 
                         ])
                     elif cat.accessory in ["RED FEATHERS", "BLUE FEATHERS",
@@ -1036,7 +1067,7 @@ class Events():
                         acc_text.extend(
                             [f'{name} seems to have picked up a neat {acc_singular} while playing out in the camp.',
                              f'{name} finds something interesting and decides to wear it on their pelt.',
-                             f'A clanmate gives {name} a pretty {acc_singular} '
+                             f'A Clanmate gives {name} a pretty {acc_singular} '
                              f'and they decide to wear it on their pelt.',
                              f'{other_name} gives {name} a pretty {acc_singular} '
                              f'and they decide to wear it on their pelt.',
@@ -1222,7 +1253,7 @@ class Events():
                             f"{name} is injured during an unsupervised training exercise.",
                             f"{name} is hurt by enemy warriors after being ordered by {leader_name} to go over the border.",
                             f"{name} is injured after being ordered by {leader_name} to check out a Twoleg object.",
-                            f"{name} is battered while fighting a clanmate after {leader_name} encouraged a fight.",
+                            f"{name} is battered while fighting a Clanmate after {leader_name} encouraged a fight.",
                             f"{name} is injured by {leader_name} for disobeying orders.",
                             f"{name} is injured by {leader_name} for speaking out against them.",
                             f"{name} is cruelly injured by {leader_name} to make an example out of them.",
@@ -1317,8 +1348,8 @@ class Events():
                 loner_name = created_cats[0].name
                 involved_cats = [created_cats[0].ID]
                 loner_text_options = [
-                    f'{name} finds a loner named {loner_name.prefix} who joins the clan.',
-                    f'A loner waits on the border for a patrol, asking to join the clan.'
+                    f'{name} finds a loner named {loner_name.prefix} who joins the clan. ',
+                    f'A loner waits on the border for a patrol, asking to join the clan. '
                 ]
                 if loner_name.suffix:
                     success_text = [
@@ -1347,8 +1378,8 @@ class Events():
                 loner_name = created_cats[0].name
                 involved_cats = [created_cats[0].ID]
                 loner_text_options = [
-                    f'{name} finds a loner named {loner_name.prefix} who wishes to join the clan.',
-                    f'A loner says that they are interested in Clan life and joins the clan.'
+                    f'{name} finds a loner named {loner_name.prefix} who wishes to join the clan. ',
+                    f'A loner says that they are interested in Clan life and joins the clan. '
                 ]
                 if loner_name.suffix:
                     success_text = [
@@ -1382,13 +1413,13 @@ class Events():
                 warrior_text = []
                 if len(game.clan.all_clans) > 0:
                     warrior_text.extend([
-                        f'{name} finds a warrior from {otherclan}Clan named {warrior_name} who asks to join the clan.'
+                        f'{name} finds a warrior from {otherclan}Clan named {warrior_name} who asks to join the clan. '
                         # f'An injured warrior from {otherclan}Clan asks to join in exchange for healing.'
                         # commenting out until I can make these new cats come injured
                     ])
                 else:
                     warrior_text.extend([
-                        f'{name} finds a warrior from a different Clan named {warrior_name} who asks to join the clan.'
+                        f'{name} finds a warrior from a different Clan named {warrior_name} who asks to join the clan. '
                     ])
                 involved_cats.append(cat.ID)
 
@@ -1409,8 +1440,8 @@ class Events():
                 loner_name = created_cats[0].name
                 involved_cats = [created_cats[0].ID]
                 loner_text_options = [
-                    f'{name} finds a kittypet named {loner_name.prefix} who wants to join the clan.',
-                    f'A kittypet called {loner_name.prefix} stops {name} and asks to join the clan.'
+                    f'{name} finds a kittypet named {loner_name.prefix} who wants to join the clan. ',
+                    f'A kittypet called {loner_name.prefix} stops {name} and asks to join the clan. '
                 ]
                 if loner_name.suffix:
                     success_text = [
@@ -1434,7 +1465,7 @@ class Events():
                 warrior_name = created_cats[0].name
                 involved_cats = [created_cats[0].ID]
                 loner_text = [
-                    f'{name} finds a kittypet named {choice(names.loner_names)} who wants to join the clan.'
+                    f'{name} finds a kittypet named {choice(names.loner_names)} who wants to join the clan. '
                 ]
                 involved_cats.append(cat.ID)
 
@@ -1542,6 +1573,10 @@ class Events():
                 the_cat.relationships[new_cat.ID] = Relationship(the_cat, new_cat)
                 new_cat.relationships[the_cat.ID] = Relationship(new_cat, the_cat)
             new_cat.thought = 'Is looking around the camp with wonder'
+
+            # give apprentice aged cat a mentor
+            if new_cat.age == 'adolescent':
+                new_cat.update_mentor()
 
             # chance to give the new cat a permanent condition, higher chance for found kits and litters
             if game.clan.game_mode != 'classic':
@@ -1667,7 +1702,7 @@ class Events():
 
         other_cat = choice(possible_other_cats)
         countdown = int(len(Cat.all_cats) / 2)
-        while cat == other_cat or other_cat.dead:
+        while cat == other_cat or other_cat.dead or other_cat.outside:
             other_cat = choice(list(Cat.all_cats.values()))
             countdown -= 1
             if countdown <= 0:

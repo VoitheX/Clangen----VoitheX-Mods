@@ -257,27 +257,32 @@ class ChooseMentorScreen(Screens):
         old_mentor = Cat.fetch_cat(self.the_cat.mentor)
         if new_mentor and old_mentor is not None:
             old_mentor.apprentice.remove(self.the_cat.ID)
-            if self.the_cat.moons > 6:
+            if self.the_cat.moons > 6 and self.the_cat.ID not in old_mentor.former_apprentices:
                 old_mentor.former_apprentices.append(self.the_cat.ID)
 
             self.the_cat.patrol_with_mentor = 0
             self.the_cat.mentor = new_mentor.ID
             new_mentor.apprentice.append(self.the_cat.ID)
             self.mentor = new_mentor
-            if self.mentor is not None:
-                self.current_mentor_text.set_text(
-                    f"{str(self.the_cat.name)}'s current mentor is {str(self.mentor.name)}")
-            else:
-                self.current_mentor_text.set_text(f"{str(self.the_cat.name)} does not have a mentor")
+
+            # They are a current apprentice, not a former one now!
+            if self.the_cat.ID in new_mentor.former_apprentices:
+                new_mentor.former_apprentices.remove(self.the_cat.ID)
+
         elif new_mentor:
             self.the_cat.mentor = new_mentor.ID
             new_mentor.apprentice.append(self.the_cat.ID)
             self.mentor = new_mentor
-            if self.mentor is not None:
-                self.current_mentor_text.set_text(
-                    f"{str(self.the_cat.name)}'s current mentor is {str(self.mentor.name)}")
-            else:
-                self.current_mentor_text.set_text(f"{str(self.the_cat.name)} does not have a mentor")
+
+            # They are a current apprentice, not a former one now!
+            if self.the_cat.ID in new_mentor.former_apprentices:
+                new_mentor.former_apprentices.remove(self.the_cat.ID)
+
+        if self.mentor is not None:
+            self.current_mentor_text.set_text(
+                f"{str(self.the_cat.name)}'s current mentor is {str(self.mentor.name)}")
+        else:
+            self.current_mentor_text.set_text(f"{str(self.the_cat.name)} does not have a mentor")
 
     def update_selected_cat(self):
         """Updates the image and information on the currently selected mentor"""
@@ -1274,19 +1279,19 @@ class ChooseMateScreen(Screens):
             self.previous_cat = game.clan.instructor.ID
 
         if is_instructor:
-            next_cat = 1
+            self.next_cat = 1
 
         for check_cat in Cat.all_cats_list:
             if check_cat.ID == self.the_cat.ID:
                 self.next_cat = 1
             if self.next_cat == 0 and check_cat.ID != self.the_cat.ID and check_cat.dead == self.the_cat.dead and \
-                    check_cat.ID != game.clan.instructor.ID and not check_cat.exiled and check_cat.status not in \
-                    ['apprentice', 'medicine cat apprentice', 'kitten'] and check_cat.df == self.the_cat.df:
+                    check_cat.ID != game.clan.instructor.ID and not check_cat.exiled and not check_cat.outside and \
+                    check_cat.age not in ["adolescent", "kitten"] and check_cat.df == self.the_cat.df:
                 self.previous_cat = check_cat.ID
 
             elif self.next_cat == 1 and check_cat.ID != self.the_cat.ID and check_cat.dead == self.the_cat.dead and \
-                    check_cat.ID != game.clan.instructor.ID and not check_cat.exiled and check_cat.status not in \
-                    ['apprentice', 'medicine cat apprentice', 'kitten'] and check_cat.df == self.the_cat.df:
+                    check_cat.ID != game.clan.instructor.ID and not check_cat.exiled and not check_cat.outside and \
+                    check_cat.age not in ["adolescent", "kitten"] and check_cat.df == self.the_cat.df:
                 self.next_cat = check_cat.ID
 
             elif int(self.next_cat) > 1:
@@ -1306,9 +1311,15 @@ class ChooseMateScreen(Screens):
         for relevant_cat in Cat.all_cats_list:
             invalid_age = relevant_cat.age not in ['kitten', 'adolescent']
 
+            # cat.is_potential_mate() is not used here becuase that restricts to the same age catagory, which we
+            # don't want here.
             direct_related = self.the_cat.is_sibling(relevant_cat) or self.the_cat.is_parent(relevant_cat) \
                              or relevant_cat.is_parent(self.the_cat)
             indirect_related = self.the_cat.is_uncle_aunt(relevant_cat) or relevant_cat.is_uncle_aunt(self.the_cat)
+
+            if not game.settings["first_cousin_mates"]:
+                indirect_related = indirect_related or relevant_cat.is_cousin(self.the_cat)
+
             related = direct_related or indirect_related
 
             not_available = relevant_cat.dead or relevant_cat.outside
