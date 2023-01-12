@@ -101,6 +101,36 @@ class Stain():
         else:
             return self.colour + self.length + " stain"
 
+class Sokoke():
+    name = "Sokoke"
+    sprites = {1: 'sokoke', 2: 'white'}
+    white_patches = [
+        'LITTLE', 'LITTLECREAMY', 'LIGHTTUXEDO', 'BUZZARDFANG', 'TIP', 'BLAZE', 
+        'BIB', 'VEE', 'PAWS', 'BELLY', 'TAILTIP', 'TOES', 'BROKENBLAZE', 'LILTWO',
+        'SCOURGE', 'TOESTAIL', 'RAVENPAW', 'HONEY',
+        'TUXEDO', 'TUXEDOCREAMY', 'FANCY', 'UNDERS', 'DAMIEN', 'SKUNK',
+        'MITAINE', 'SQUEAKS', 'STAR',
+        'ANY', 'ANYCREAMY', 'ANY2', 'ANY2CREAMY', 'BROKEN', 'FRECKLES', 'RINGTAIL', 
+        'HALFFACE', 'PANTS2', 'GOATEE', 'PRINCE', 'FAROFA', 'MISTER', 'PANTS', 
+        'REVERSEPANTS', 'HALFWHITE', 'APPALOOSA', 'PIEBALD', 'CURVED', 'GLASS', 
+        'VAN', 'VANCREAMY', 'ONEEAR', 'LIGHTSONG', 'TAIL', 'HEART', 'MOORISH',
+        'MASKMANTLE', 'APRON', 'CAPSADDLE',
+        'COLOURPOINT', 'COLOURPOINTCREAMY', 'RAGDOLL', 'VITILIGO', 'VITILIGO2',
+        'BLACKANY', 'BLACKTUXEDO', 'BLACKLITTLE', 'BLACKCOLOURPOINT', 'BLACKVAN', 'BLACKANY2',
+		'BONEEAR', 'BLACKBROKEN', 'BLACKLIGHTTUXEDO', 'BLACKBUZZARDFANG', 'BAGDOLL', 'BLACKLIGHTSONG', 'BLACKVITILIGO',
+		'BLACKANYCREAMY', 'BLACKTUXEDOCREAMY', 'BLACKLITTLECREAMY', 'BLACKCOLOURPOINTCREAMY', 'BLACKVANCREAMY', 'BLACKANY2CREAMY',
+    ]
+    def __init__(self, colour, white, length):
+        self.white = white  # boolean; does cat have white on it or no
+        self.colour = colour
+        self.length = length
+
+    def __repr__(self):
+        if self.white:
+            return f"white and {self.colour}{self.length} sokoke"
+        else:
+            return self.colour + self.length + " sokoke"
+
 class Tabby():
     name = "Tabby"
     sprites = {1: 'tabby', 2: 'white'}
@@ -385,11 +415,11 @@ pelt_c_no_bw = [
     'COFFEE', 'RICHGOLD', 'MOCCACCINO', 'PALEBROWN', 'DUSTYPINK', 'GRASSY', 'VAMPIRE', 'DOVE', 'GRAVEL', 'SLATEGREY',
     'CADETBLUE', 'OLDLAVENDER', 'COMET', 'MIDGREY', 'IRONGREY', 'DUST', 'VIOLET', 'DARKVIOLET', 'BLUEVIOLET', 'CHARCOAL', 'ASH', 'PALEVIOLET',
 ]
-tortiepatterns = ['tortiesolid', 'tortietabby', 'tortiespeckledtabby', 'tortiebengal', 'tortiemarbled', 'tortieticked', 'tortiesmoke', 'tortierosette', 'tortiespeckled', 'tortiecombo']
+tortiepatterns = ['tortiesolid', 'tortietabby', 'tortiespeckledtabby', 'tortiebengal', 'tortiemarbled', 'tortieticked', 'tortiesmoke', 'tortierosette', 'tortiespeckled', 'tortiecombo', 'tortiesokoke']
 patch_colours = ['PALEONE', 'PALETWO', 'PALETHREE', 'PALEFOUR', 'GOLDONE', 'GOLDTWO',
     'GOLDTHREE', 'GOLDFOUR', 'GINGERONE', 'GINGERTWO', 'GINGERTHREE', 'GINGERFOUR',
     'DARKONE', 'DARKTWO', 'DARKTHREE', 'DARKFOUR', 'CREAMONE', 'CREAMTWO', 'CREAMTHREE', 'CREAMFOUR']
-tortiebases = ['single', 'tabby', 'speckledtabby', 'stain', 'bengal', 'marbled', 'ticked', 'smoke', 'rosette', 'speckled',]
+tortiebases = ['single', 'tabby', 'speckledtabby', 'stain', 'sokoke', 'bengal', 'marbled', 'ticked', 'smoke', 'rosette', 'speckled',]
 tortiecolours = ["SILVER", "GREY", "DARKGREY", "BLACK", "LIGHTBROWN", "BROWN", "DARKBROWN",
                  "PEACHYELLOW", "MOCHA", "METALLICBRONZE", "WALNUT", "FOX", "ESPRESSO", "PALEORANGE", "PALECARMINE", "CARAMEL", "SIENNA", "VANILLA", "MUSHROOM",
                  "COFFEE", "RICHGOLD", "MOCCACCINO", "PALEBROWN", "DUSTYPINK", "GRASSY", "VAMPIRE", "DOVE", "GRAVEL", "SLATEGREY",
@@ -505,6 +535,13 @@ def choose_pelt(gender,colour=None,white=None,pelt=None,length=None,determined=F
             return Stain(choice(pelt_colours), white, length)
         else:
             return Stain(colour, white, length)
+    elif pelt == "Sokoke":
+        if colour is None and white is None:
+            return Sokoke(choice(pelt_colours), choice([False, True]), length)
+        elif colour is None:
+            return Sokoke(choice(pelt_colours), white, length)
+        else:
+            return Sokoke(colour, white, length)
     elif pelt == "Marbled":
         if colour is None and white is None:
             return Marbled(choice(pelt_colours), choice([False, True]), length)
@@ -622,6 +659,8 @@ def describe_color(pelt, tortiecolour, tortiepattern, white_patches):
             color_name = color_name + ' smoke'
         elif pelt.name == "Stain":
             color_name = color_name + ' stained'
+        elif pelt.name == "Sokoke":
+            color_name = color_name + ' sokoke'
 
         elif pelt.name == "Tortie":
             if tortiepattern not in ["tortiesolid", "tortiesmoke"]:

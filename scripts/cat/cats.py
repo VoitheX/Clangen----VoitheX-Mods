@@ -667,6 +667,7 @@ class Cat():
                         'medicine cat', 'elder'.
             resort = If sorting type is 'rank', and resort is True, it will resort the cat list. This should
                     only be true for non-timeskip status changes. """
+        old_status = self.status
         self.status = new_status
         self.name.status = new_status
 
@@ -680,16 +681,45 @@ class Cat():
         if self.status == 'warrior':
             self.update_mentor()
             self.update_skill()
-            if self.ID in game.clan.med_cat_list:
-                game.clan.med_cat_list.remove(self.ID)
+            if old_status == "medicine cat":
+                game.clan.remove_med_cat(self)
+
+            if old_status == 'leader':
+                game.clan.leader_lives = 0
+                if game.clan.leader:
+                    if game.clan.leader.ID == self.ID:
+                        game.clan.leader = None
+                        game.clan.leader_predecessors += 1
+
         elif self.status == 'medicine cat':
+            if self.retired:
+                self.retired = False
+
             self.update_med_mentor()
             self.update_skill()
             if game.clan is not None:
                 game.clan.new_medicine_cat(self)
 
         if self.status == 'elder':
+            self.update_mentor()
+            self.retired = True
             self.skill = choice(self.elder_skills)
+
+            # Will remove them from the clan med cat variables, if they are a med cat
+            if old_status == "medicine cat":
+                game.clan.remove_med_cat(self)
+
+            if old_status == 'leader':
+                game.clan.leader_lives = 0
+                if game.clan.leader:
+                    if game.clan.leader.ID == self.ID:
+                        game.clan.leader = None
+                        game.clan.leader_predecessors += 1
+
+            if game.clan.deputy:
+                if game.clan.deputy.ID == self.ID:
+                    game.clan.deputy = None
+                    game.clan.deputy_predecessors += 1
 
         # update class dictionary
         self.all_cats[self.ID] = self
@@ -813,10 +843,9 @@ class Cat():
         self.update_traits()
         self.in_camp = 1
 
-        if self.moons < 12:
+        if self.status in ['apprentice', 'medicine cat apprentice']:
             self.update_mentor()
-
-        if self.moons >= 12:
+        else:
             self.update_skill()
 
         self.create_interaction()
@@ -1183,6 +1212,18 @@ class Cat():
             return True
         return False
 
+    def is_cousin(self, other_cat):
+        grandparent_id = []
+        for parent in other_cat.get_parents():
+            parent_ob = Cat.fetch_cat(parent)
+            grandparent_id.extend(parent_ob.get_parents())
+        for parent in self.get_parents():
+            parent_ob = Cat.fetch_cat(parent)
+            if set(parent_ob.get_parents()) & set(grandparent_id):
+                return True
+        return False
+
+
 # ---------------------------------------------------------------------------- #
 #                                  conditions                                  #
 # ---------------------------------------------------------------------------- #
@@ -1435,6 +1476,8 @@ class Cat():
     def retire_cat(self):
         self.retired = True
         self.status = 'elder'
+        self.name.status = 'elder'
+        self.update_mentor()
 
     def additional_injury(self, injury):
         self.get_injured(injury, event_triggered=True)
@@ -1741,8 +1784,8 @@ class Cat():
         else:
             self.mentor = None
 
-        # append and remove from lists if the app has aged up to warrior
-        if self.status == 'warrior' or self.dead:
+        # append and remove from lists if the app has aged up to warrior, or become an elder
+        if self.status in ['warrior', 'elder'] or self.dead:
             # app has graduated, no mentor needed anymore
             self.mentor = None
             # append and remove
@@ -1809,6 +1852,7 @@ class Cat():
                 if self.parent1:
                     if self.is_sibling(other_cat) or other_cat.is_sibling(self):
                         return False
+
             # Check for relation via self's parents (parent/grandparent)
             if self.parent1:
                 if other_cat.is_grandparent(self) or other_cat.is_parent(self):
@@ -1817,6 +1861,12 @@ class Cat():
                 if other_cat.siblings:
                     if other_cat.is_uncle_aunt(self):
                         return False
+
+            # Only need to check one.
+            if not game.settings['first_cousin_mates']:
+                if self.is_cousin(other_cat):
+                    return False
+
         else:
             if self.is_sibling(other_cat) or other_cat.is_sibling(self):
                         return False
@@ -1871,6 +1921,7 @@ class Cat():
                 if self.parent1:
                     if self.is_sibling(other_cat) or other_cat.is_sibling(self):
                         return False
+
             # Check for relation via self's parents (parent/grandparent)
             if self.parent1:
                 if other_cat.is_grandparent(self) or other_cat.is_parent(self):
@@ -1879,6 +1930,11 @@ class Cat():
                 if other_cat.siblings:
                     if other_cat.is_uncle_aunt(self):
                         return False
+
+            if not game.settings['first_cousin_mates']:
+                if self.is_cousin(other_cat):
+                    return False
+
         else:
             if self.is_sibling(other_cat) or other_cat.is_sibling(self):
                         return False
