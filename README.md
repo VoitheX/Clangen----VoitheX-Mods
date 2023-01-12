@@ -1,7 +1,4 @@
-# clangen - modded
-The original thing does NOT belong to me! it's only modded by me, and this is to let people have easier time getting themselves the game with my mods.
-
-Here's info from the Original Clangen Info:
+# clangen
 
 ### [Project Tracker](https://github.com/users/RAYTRAC3R/projects/1/views/1) || [Discord Server](https://discord.gg/rnFQqyPZ7K) || [Itch.io Page](https://sablesteel.itch.io/clan-gen-fan-edit)
 
