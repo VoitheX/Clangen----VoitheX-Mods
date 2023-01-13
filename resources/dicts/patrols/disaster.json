@@ -849,7 +849,7 @@
     "chance_of_success": 40,
     "exp": 20,
     "success_text": [
-            "The cats leap forward, dashing to the other side of the beach and up onto the rocks. They make in in time to watch the beach get lost under a tide of water from inland.",
+            "The cats leap forward, dashing to the other side of the beach and up onto the rocks. They make it in time to watch the beach get lost under a tide of water from inland.",
             null,
             "s_c shouts to get back! The patrol scrambles back the way they came and watches the beach disappear under a flood of water. It leaves behind a changed landscape, tons of debris - and a large dead sheep. Your cats pounce on the opportunity to scavenge.",
             "s_c shrieks at the strange sound, paws digging into the sand as they turn and run for home. The rest of the patrol yowls at them to stop, running after them, but s_c is proven right when the beach disappears under a flood of water from inland. They've saved them all."
@@ -886,7 +886,7 @@
     "success_text": [
         "The patrol descends into battle without a second thought, eventually driving the rogues away.",
         null,
-        "s_c immediately leaps to protect their clanmates, their ferocity in battle quickly terrifying the rogues. Realizing that they've sorely underestimated the Clan cats, the rogues turn tail and run.",
+        "s_c immediately leaps to protect their Clanmates, their ferocity in battle quickly terrifying the rogues. Realizing that they've sorely underestimated the Clan cats, the rogues turn tail and run.",
         "s_c revels in the battle, leaping into the fray with their teeth bared and claws ready. The rogues are quickly driven away by the patrol."
     ],
     "fail_text": [
@@ -919,7 +919,7 @@
     "success_text": [
         "The patrol descends into battle without a second thought, easily driving the rogues away as they use their knowledge of the rocky terrain to their advantage.",
         null,
-        "s_c immediately leaps to protect their clanmates, their ferocity in battle quickly terrifying the rogues. Realizing that they've sorely underestimated the Clan cats, the rogues turn tail and run.",
+        "s_c immediately leaps to protect their Clanmates, their ferocity in battle quickly terrifying the rogues. Realizing that they've sorely underestimated the Clan cats, the rogues turn tail and run.",
         "s_c revels in the battle, leaping into the fray with their teeth bared and claws ready. The rogues are quickly driven away by the patrol."
     ],
     "fail_text": [
@@ -952,7 +952,7 @@
     "success_text": [
         "The patrol descends into battle without a second thought, eventually driving the rogues away.",
         null,
-        "s_c immediately leaps to protect their clanmates, their ferocity in battle quickly terrifying the rogues. Realizing that they've sorely underestimated the Clan cats, the rogues turn tail and run.",
+        "s_c immediately leaps to protect their Clanmates, their ferocity in battle quickly terrifying the rogues. Realizing that they've sorely underestimated the Clan cats, the rogues turn tail and run.",
         "s_c revels in the battle, leaping into the fray with their teeth bared and claws ready. The rogues are quickly driven away by the patrol."
     ],
     "fail_text": [
@@ -985,7 +985,7 @@
     "success_text": [
         "The patrol descends into battle without a second thought, eventually driving the rogues away.",
         null,
-        "s_c immediately leaps to protect their clanmates, their ferocity in battle quickly terrifying the rogues. Realizing that they've sorely underestimated the Clan cats, the rogues turn tail and run.",
+        "s_c immediately leaps to protect their Clanmates, their ferocity in battle quickly terrifying the rogues. Realizing that they've sorely underestimated the Clan cats, the rogues turn tail and run.",
         "s_c revels in the battle, leaping into the fray with their teeth bared and claws ready. The rogues are quickly driven away by the patrol."
     ],
     "fail_text": [

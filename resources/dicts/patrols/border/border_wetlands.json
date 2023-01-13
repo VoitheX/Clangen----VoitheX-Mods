@@ -1332,7 +1332,7 @@
         "chance_of_success": 40,
         "exp": 20,
         "success_text": [
-            "The cats leap forward, dashing to the other side of the bog and up into the trees. They make in in time to watch the swamp get lost under a tide of water from inland.",
+            "The cats leap forward, dashing to the other side of the bog and up into the trees. They make it in time to watch the swamp get lost under a tide of water from inland.",
             null,
             "s_c shouts to get back! The patrol scrambles back the way they came and watches the swamp disappear under a flood of water. It leaves behind a changed landscape, tons of debris - and a large dead sheep. Your cats pounce on the opportunity to scavenge.",
             "s_c shrieks at the strange sound, paws digging into the mud as they turn and run for home. The rest of the patrol yowls at them to stop, running after them, but s_c is proven right when the swamp disappears under a flood of water from inland. They've saved them all."
@@ -1380,7 +1380,7 @@
         "chance_of_success": 40,
         "exp": 20,
         "success_text": [
-            "r_c leaps forward, dashing to the other side of the bog and up into the trees. They make in in time to watch the swamp get lost under a tide of water from inland.",
+            "r_c leaps forward, dashing to the other side of the bog and up into the trees. They make it in time to watch the swamp get lost under a tide of water from inland.",
             null,
             "s_c scrambles back the way they came and watches the swamp disappear under a flood of water. It leaves behind a changed landscape, tons of debris - and a large dead sheep. s_c pounces on the opportunity to scavenge.",
             "s_c shrieks at the strange sound, paws digging into the mud as they turn and run for home. They are proven right when the swamp disappears under a flood of water from inland. Their caution saved their life."
@@ -2004,7 +2004,7 @@
             "It keeps the cats' minds off their damp paws and muddy path. The patrol goes quickly and easily.",
             null,
             "s_c spins a story, vivid and engaging, telling the tale of a massive war their ancestors fought over the border the patrol is headed to mark. Not only does it keep every cat entertained, it really emphasizes the importance of the patrol and motivates everyone.",
-            "It's a fantastic idea, making the patrol fly by as cats chat and laugh with their clanmates, and everyone ends the day feeling much closer to each other."
+            "It's a fantastic idea, making the patrol fly by as cats chat and laugh with their Clanmates, and everyone ends the day feeling much closer to each other."
         ],
         "fail_text": [
             "r_c skids on mud as they're getting to an exciting part, and has to stop the story to pay attention to the path. ",
