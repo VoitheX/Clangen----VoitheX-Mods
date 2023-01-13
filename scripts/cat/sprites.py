@@ -645,7 +645,7 @@ for a, i in enumerate(['PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM'])
     sprites.make_group('sokoke', (a, 1), f'sokoke{i}')
     sprites.make_group('sokokeextra', (a, 1), f'sokokeextra{i}', sprites_y=2)
 for a, i in enumerate(['LIGHTBROWN', 'BROWN', 'DARKBROWN']):
-    sprites.make_group('sokoke', (a, 2), f'stain{i}')
+    sprites.make_group('sokoke', (a, 2), f'sokoke{i}')
     sprites.make_group('sokokeextra', (a, 2), f'sokokeextra{i}', sprites_y=2)
 for a, i in enumerate(['PEACHYELLOW', 'MOCHA', 'METALLICBRONZE', 'WALNUT', 'FOX', 'ESPRESSO']):
     sprites.make_group('sokokebrowns', (a, 0), f'sokoke{i}')
@@ -663,7 +663,7 @@ for a, i in enumerate(['CADETBLUE', 'OLDLAVENDER', 'COMET', 'MIDGREY', 'IRONGREY
     sprites.make_group('sokokegreys', (a, 1), f'sokoke{i}')
     sprites.make_group('sokokegreysextra', (a, 1), f'sokokeextra{i}', sprites_y=2)
 for a, i in enumerate(['VIOLET', 'DARKVIOLET', 'BLUEVIOLET', 'CHARCOAL', 'ASH', 'PALEVIOLET']):
-    sprites.make_group('sokokegreys', (a, 2), f'stain{i}')
+    sprites.make_group('sokokegreys', (a, 2), f'sokoke{i}')
     sprites.make_group('sokokegreysextra', (a, 2), f'sokokeextra{i}', sprites_y=2)
     
 # new torties
