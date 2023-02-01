@@ -10,6 +10,38 @@ from scripts.cat.sprites import *
 from scripts.cat.pelts import *
 from scripts.game_structure.game_essentials import *
 
+def scale(rect):
+    rect[0] = round(rect[0]/1600 * screen_x) if rect[0] > 0 else rect[0]
+    rect[1] = round(rect[1]/1400 * screen_y) if rect[1] > 0 else rect[1]
+    rect[2] = round(rect[2] / 1600 * screen_x) if rect[2] > 0 else rect[2]
+    rect[3] = round(rect[3] / 1400 * screen_y) if rect[3] > 0 else rect[3]
+
+    return rect
+
+
+def get_alive_clan_queens(all_cats):
+	"""Returns a list with all cats with the 'status' queen."""
+	queens = []
+	for inter_cat in all_cats.values():
+		if inter_cat.dead:
+			continue
+		if str(inter_cat.status) != 'kitten' or inter_cat.parent1 is None:
+			continue
+
+		parent_1 = all_cats[inter_cat.parent1]
+		parent_2 = None
+		if inter_cat.parent2:
+			parent_2 = all_cats[inter_cat.parent2]
+
+		if parent_1.gender == 'male':
+			if (parent_2 is None or parent_2.gender == 'male') and\
+				not parent_1.dead and not parent_1.exiled and not parent_1.outside:
+				queens.append(parent_1)
+			elif parent_2 and not parent_2.dead and not parent_2.exiled and not parent_2.outside:
+				queens.append(parent_2)
+		elif not parent_1.dead and not parent_1.dead and not parent_1.exiled and not parent_1.outside:
+			queens.append(parent_1)
+	return queens
 
 def get_med_cats(Cat, working=True):
     """
@@ -79,8 +111,6 @@ def change_clan_relations(other_clan, difference=0):
     # change the value
     clan_relations += difference
     game.clan.all_clans[y].relations = clan_relations
-    print('CLAN RELATIONS:', other_clan.name, difference)
-
 
 # ---------------------------------------------------------------------------- #
 #                       Relationship / Traits / Relative                       #
@@ -278,7 +308,7 @@ def change_relationship_values(cats_to,
 def event_text_adjust(Cat, text, cat, other_cat=None, other_clan_name=None, keep_m_c=False):
     danger = ["a rogue", "a dog", "a fox", "an otter", "a rat", "a hawk", "an enemy warrior", "a badger"]
     tail_danger = ["a rogue", "a dog", "a fox", "an otter", "a rat", "a hawk",
-                   "an enemy warrior", "a badger", "a twoleg trap"]
+                   "an enemy warrior", "a badger", "a Twoleg trap"]
 
     danger_choice = choice(danger)
     tail_choice = choice(tail_danger)
@@ -349,23 +379,23 @@ def update_sprite(cat):
     if cat.pelt is None:
         if cat.parent1 is None:
             # If pelt has not been picked manually, this function chooses one based on possible inheritances
-            cat.pelt = choose_pelt(cat.gender)
+            cat.pelt = choose_pelt()
         elif cat.parent2 is None and cat.parent1 in cat.all_cats.keys():
             # 1 in 3 chance to inherit a single parent's pelt
             par1 = cat.all_cats[cat.parent1]
-            cat.pelt = choose_pelt(cat.gender, choice([par1.pelt.colour, None]), choice([par1.pelt.white, None]),
+            cat.pelt = choose_pelt(choice([par1.pelt.colour, None]), choice([par1.pelt.white, None]),
                                    choice([par1.pelt.name, None]),
                                    choice([par1.pelt.length, None]))
         if cat.parent1 in cat.all_cats.keys() and cat.parent2 in cat.all_cats.keys():
             # 2 in 3 chance to inherit either parent's pelt
             par1 = cat.all_cats[cat.parent1]
             par2 = cat.all_cats[cat.parent2]
-            cat.pelt = choose_pelt(cat.gender, choice([par1.pelt.colour, par2.pelt.colour, None]),
+            cat.pelt = choose_pelt(choice([par1.pelt.colour, par2.pelt.colour, None]),
                                    choice([par1.pelt.white, par2.pelt.white, None]),
                                    choice([par1.pelt.name, par2.pelt.name, None]),
                                    choice([par1.pelt.length, par2.pelt.length, None]))
         else:
-            cat.pelt = choose_pelt(cat.gender)
+            cat.pelt = choose_pelt()
 
             # THE SPRITE UPDATE
     # draw colour & style
@@ -374,7 +404,8 @@ def update_sprite(cat):
     try:
         if cat.pelt.name not in ['Tortie', 'Calico']:
             if cat.pelt.length == 'long' and cat.status not in ['kitten', 'apprentice',
-                                                                'medicine cat apprentice'] or cat.age == 'elder':
+                                                                'medicine cat apprentice', "mediator apprentice"] \
+                    or cat.age == 'elder':
                 new_sprite.blit(
                     sprites.sprites[cat.pelt.sprites[1] + 'extra' + cat.pelt.colour + str(cat.age_sprites[cat.age])],
                     (0, 0))
@@ -383,7 +414,8 @@ def update_sprite(cat):
                                 (0, 0))
         else:
             if cat.pelt.length == 'long' and cat.status not in ['kitten', 'apprentice',
-                                                                'medicine cat apprentice'] or cat.age == 'elder':
+                                                                'medicine cat apprentice', "mediator apprentice"] \
+                    or cat.age == 'elder':
                 new_sprite.blit(
                     sprites.sprites[cat.tortiebase + 'extra' + cat.tortiecolour + str(cat.age_sprites[cat.age])], (0, 0))
                 new_sprite.blit(sprites.sprites[cat.tortiepattern + 'extra' + cat.pattern + str(cat.age_sprites[cat.age])],
@@ -408,7 +440,8 @@ def update_sprite(cat):
 
         # draw white patches
         if cat.white_patches is not None:
-            if cat.pelt.length == 'long' and cat.status not in ['kitten', 'apprentice', 'medicine cat apprentice'] \
+            if cat.pelt.length == 'long' and cat.status not in ['kitten', 'apprentice', 'medicine cat apprentice',
+                                                                "mediator apprentice"] \
                     or cat.age == 'elder':
                 new_sprite.blit(
                     sprites.sprites['whiteextra' + cat.white_patches +
@@ -419,10 +452,14 @@ def update_sprite(cat):
                                     str(cat.age_sprites[cat.age])], (0, 0))
         # draw eyes & scars1
         if cat.pelt.length == 'long' and cat.status not in [
-            'kitten', 'apprentice', 'medicine cat apprentice'
+            'kitten', 'apprentice', 'medicine cat apprentice', "mediator apprentice"
         ] or cat.age == 'elder':
             new_sprite.blit(
                 sprites.sprites['eyesextra' + cat.eye_colour +
+                                str(cat.age_sprites[cat.age])], (0, 0))
+            if cat.eye_colour2 != None:
+                new_sprite.blit(
+                sprites.sprites['eyes2extra' + cat.eye_colour2 +
                                 str(cat.age_sprites[cat.age])], (0, 0))
             for scar in cat.scars:
                 if scar in scars1:
@@ -440,6 +477,10 @@ def update_sprite(cat):
             new_sprite.blit(
                 sprites.sprites['eyes' + cat.eye_colour +
                                 str(cat.age_sprites[cat.age])], (0, 0))
+            if cat.eye_colour2 != None:
+                new_sprite.blit(
+                sprites.sprites['eyes2' + cat.eye_colour2 +
+                                str(cat.age_sprites[cat.age])], (0, 0))
             for scar in cat.scars:
                 if scar in scars1:
                     new_sprite.blit(
@@ -456,19 +497,31 @@ def update_sprite(cat):
         # draw line art
         if game.settings['shaders'] and not cat.dead:
             if cat.pelt.length == 'long' and cat.status not in [
-                'kitten', 'apprentice', 'medicine cat apprentice'
+                'kitten', 'apprentice', 'medicine cat apprentice', "mediator apprentice"
             ] or cat.age == 'elder':
                 new_sprite.blit(
                     sprites.sprites['shaders' +
+                                    str(cat.age_sprites[cat.age] + 9)],
+                    (0, 0),
+                    special_flags=pygame.BLEND_RGB_MULT)
+                new_sprite.blit(
+                    sprites.sprites['lighting' +
                                     str(cat.age_sprites[cat.age] + 9)],
                     (0, 0))
             else:
                 new_sprite.blit(
                     sprites.sprites['shaders' +
-                                    str(cat.age_sprites[cat.age])], (0, 0))
-        elif not cat.dead:
+                                    str(cat.age_sprites[cat.age])], (0, 0),
+                    special_flags=pygame.BLEND_RGB_MULT)
+                new_sprite.blit(
+                    sprites.sprites['lighting' +
+                                    str(cat.age_sprites[cat.age])],
+                    (0, 0))
+
+
+        if not cat.dead:
             if cat.pelt.length == 'long' and cat.status not in [
-                'kitten', 'apprentice', 'medicine cat apprentice'
+                'kitten', 'apprentice', 'medicine cat apprentice', "mediator apprentice"
             ] or cat.age == 'elder':
                 new_sprite.blit(
                     sprites.sprites['lines' +
@@ -480,7 +533,7 @@ def update_sprite(cat):
                     (0, 0))
         elif cat.df:
             if cat.pelt.length == 'long' and cat.status not in [
-                'kitten', 'apprentice', 'medicine cat apprentice'
+                'kitten', 'apprentice', 'medicine cat apprentice', "mediator apprentice"
             ] or cat.age == 'elder':
                 new_sprite.blit(
                     sprites.sprites['lineartdf' +
@@ -492,7 +545,7 @@ def update_sprite(cat):
                                     str(cat.age_sprites[cat.age])], (0, 0))
         elif cat.dead:
             if cat.pelt.length == 'long' and cat.status not in [
-                'kitten', 'apprentice', 'medicine cat apprentice'
+                'kitten', 'apprentice', 'medicine cat apprentice', "mediator apprentice"
             ] or cat.age == 'elder':
                 new_sprite.blit(
                     sprites.sprites['lineartdead' +
@@ -505,7 +558,7 @@ def update_sprite(cat):
         # draw skin and scars2
         blendmode = pygame.BLEND_RGBA_MIN
         if cat.pelt.length == 'long' and cat.status not in [
-            'kitten', 'apprentice', 'medicine cat apprentice'
+            'kitten', 'apprentice', 'medicine cat apprentice', "mediator apprentice"
         ] or cat.age == 'elder':
             new_sprite.blit(
                 sprites.sprites['skinextra' + cat.skin +
@@ -526,7 +579,7 @@ def update_sprite(cat):
 
         # draw accessories        
         if cat.pelt.length == 'long' and cat.status not in [
-            'kitten', 'apprentice', 'medicine cat apprentice'
+            'kitten', 'apprentice', 'medicine cat apprentice', "mediator apprentice"
         ] or cat.age == 'elder':
             if cat.accessory in plant_accessories:
                 new_sprite.blit(
@@ -562,8 +615,7 @@ def update_sprite(cat):
                     sprites.sprites['collars' + cat.accessory +
                                     str(cat.age_sprites[cat.age])], (0, 0))
     except (TypeError, KeyError):
-        print(f"Failed to load cat ID #{cat}'s sprite:")
-        print(traceback.format_exc())
+        print(f"ERROR: Failed to load cat ID #{cat}'s sprite:\n", traceback.format_exc())
 
         # Placeholder image
         new_sprite.blit(

@@ -129,7 +129,7 @@ class Condition_Events():
                 triggered = True
 
             if triggered:
-                possible_events = self.generate_events.possible_injury_events(cat.status, cat.age)
+                possible_events = self.generate_events.possible_events(cat.status, cat.age, "injury")
                 final_events = []
 
                 for event in possible_events:
@@ -145,14 +145,27 @@ class Condition_Events():
                     if season not in event.tags:
                         continue
 
-                    if "other_cat_leader" in event.tags and other_cat.status != "leader":
-                        continue
-                    if "other_cat_mentor" in event.tags and cat.mentor != other_cat.ID:
-                        continue
-                    if "other_cat_adult" in event.tags and other_cat.age in ["elder", "kitten"]:
-                        continue
-                    if "other_cat_kit" in event.tags and other_cat.age != 'kitten':
-                        continue
+                    if other_cat:
+                        if "other_cat_leader" in event.tags and other_cat.status != "leader":
+                            continue
+                        if "other_cat_mentor" in event.tags and cat.mentor != other_cat.ID:
+                            continue
+                        if "other_cat_adult" in event.tags and other_cat.age in ["elder", "kitten"]:
+                            continue
+                        if "other_cat_kit" in event.tags and other_cat.age != 'kitten':
+                            continue
+
+                        if event.other_cat_trait is not None:
+                            if other_cat.trait not in event.other_cat_trait and int(random.random() * 10):
+                                continue
+
+                        if event.other_cat_skill is not None:
+                            if other_cat.skill not in event.other_cat_skill and int(random.random() * 10):
+                                continue
+
+                    else:
+                        if "other_cat" in event.tags:
+                            continue
 
                     if "clan_kits" in event.tags and not alive_kits:
                         continue
@@ -163,14 +176,6 @@ class Condition_Events():
 
                     if event.cat_skill is not None:
                         if cat.skill not in event.cat_skill and int(random.random() * 10):
-                            continue
-
-                    if event.other_cat_trait is not None:
-                        if other_cat.trait not in event.other_cat_trait and int(random.random() * 10):
-                            continue
-
-                    if event.other_cat_skill is not None:
-                        if other_cat.skill not in event.other_cat_skill and int(random.random() * 10):
                             continue
 
                     if event.injury == 'mangled tail' and ('NOTAIL' in cat.scars or 'HALFTAIL' in cat.scars):
@@ -197,8 +202,6 @@ class Condition_Events():
                         has_other_clan = True
                     if "war" in injury_event.tags:
                         other_clan_name = enemy_clan
-
-                    # print('INJURY:', cat.name, cat.status, len(final_events), other_cat.name, other_cat.status)
 
                     # let's change some relationship values \o/ check if another cat is mentioned
                     if "other_cat" in injury_event.tags:
@@ -401,8 +404,6 @@ class Condition_Events():
 
             # moon skip to try and kill or heal cat
             skipped = cat.moon_skip_illness(illness)
-            # test print, to track if events are displaying correctly
-            # print(illness, cat.name, cat.healed_condition)
 
             # if event trigger was true, events should be skipped for this illness
             if skipped is True:
@@ -687,7 +688,7 @@ class Condition_Events():
                                     not game.clan.leader.outside:
                                 event = f"{game.clan.leader.name}, seeing {cat.name} struggling the last few moons " \
                                         f"approaches them and promises them that no one would think less of them for " \
-                                        f"retiring early and that they would still be a valuable member of the clan " \
+                                        f"retiring early and that they would still be a valuable member of the Clan " \
                                         f"as an elder. {cat.name} agrees and later that day their elder ceremony " \
                                         f"is held."
                             else:
@@ -699,7 +700,7 @@ class Condition_Events():
                             event += f"They are given the name {cat.name.prefix}{cat.name.suffix} in honor " \
                                      f"of their contributions to {game.clan.name}Clan."
 
-                        cat.status_change('elder')
+                        cat.retire_cat()
                         game.ranks_changed_timeskip = True
                         event_list.append(event)
 
@@ -722,7 +723,7 @@ class Condition_Events():
                         event += f"They are given the name {cat.name.prefix}{cat.name.suffix} in honor " \
                                  f"of their contributions to {game.clan.name}Clan."
 
-                    cat.status_change('elder')
+                    cat.retire_cat()
                     game.ranks_changed_timeskip = True
                     event_list.append(event)
 
@@ -884,7 +885,6 @@ class Condition_Events():
                     risk["chance"] += 11 - modifier + int(amount_used * 1.5)
                     if risk["chance"] < 0:
                         risk["chance"] = 0
-            print(amount_used, herb_used, condition, effect_message, "modifier:", 11 - modifier + int(amount_used * 1.5))
 
             text = f"{cat.name} was given {herb_used.replace('_', ' ')} as treatment for {condition}. {effect_message}"
             game.herb_events_list.append(text)

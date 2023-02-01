@@ -37,7 +37,7 @@ class Death_Events():
             other_clan = game.clan.all_clans[0]
             other_clan_name = f'{str(other_clan.name)}Clan'
 
-        possible_events = self.generate_events.possible_death_events(cat.status, cat.age)
+        possible_events = self.generate_events.possible_events(cat.status, cat.age, "death")
         final_events = []
 
         for event in possible_events:
@@ -65,17 +65,32 @@ class Death_Events():
                 continue
 
             # check other_cat rank
-            if "other_cat_leader" in event.tags and other_cat.status != "leader":
-                continue
-            elif "other_cat_dep" in event.tags and other_cat.status != "deputy":
-                continue
-            elif "other_cat_med" in event.tags and \
-                    other_cat.status not in ["medicine cat", "medicine cat apprentice"]:
-                continue
-            elif "other_cat_adult" in event.tags and other_cat.age in ["elder", "kitten"]:
-                continue
-            elif "other_cat_kit" in event.tags and other_cat.status != "kitten":
-                continue
+            if other_cat:
+                if "other_cat_leader" in event.tags and other_cat.status != "leader":
+                    continue
+                elif "other_cat_dep" in event.tags and other_cat.status != "deputy":
+                    continue
+                elif "other_cat_med" in event.tags and \
+                        other_cat.status not in ["medicine cat", "medicine cat apprentice"]:
+                    continue
+                elif "other_cat_adult" in event.tags and other_cat.age in ["elder", "kitten"]:
+                    continue
+                elif "other_cat_kit" in event.tags and other_cat.status != "kitten":
+                    continue
+
+                # check other_cat trait
+                if event.other_cat_trait is not None:
+                    if other_cat.trait not in event.other_cat_trait and int(random.random() * 10):
+                        continue
+
+                # check other_cat skill
+                if event.other_cat_skill is not None:
+                    if other_cat.skill not in event.other_cat_skill and int(random.random() * 10):
+                        continue
+
+            else:
+                if "other_cat" in event.tags or "multi_death" in event.tags:
+                    continue
 
             # check for mate if the event requires one
             if "mate" in event.tags and cat.mate is None:
@@ -91,22 +106,11 @@ class Death_Events():
                 if cat.skill not in event.cat_skill and int(random.random() * 10):
                     continue
 
-            # check other_cat trait
-            if event.other_cat_trait is not None:
-                if other_cat.trait not in event.other_cat_trait and int(random.random() * 10):
-                    continue
-
-            # check other_cat skill
-            if event.other_cat_skill is not None:
-                if other_cat.skill not in event.other_cat_skill and int(random.random() * 10):
-                    continue
-
             final_events.append(event)
 
         # ---------------------------------------------------------------------------- #
         #                                  kill cats                                   #
         # ---------------------------------------------------------------------------- #
-        #print('DEATH:', cat.name, cat.status, len(final_events), other_cat.name, other_cat.status)
         death_cause = (random.choice(final_events))
 
         # check if the cat's body was retrievable
@@ -123,7 +127,7 @@ class Death_Events():
         if "other_cat" in death_cause.tags and "multi_death" not in death_cause.tags:
             self.handle_relationship_changes(cat, death_cause, other_cat)
 
-        death_text = event_text_adjust(Cat, death_cause.death_text, cat, other_cat, other_clan_name)
+        death_text = event_text_adjust(Cat, death_cause.event_text, cat, other_cat, other_clan_name)
         history_text = 'this should not show up - history text'
         other_history_text = 'this should not show up - other_history text'
 
@@ -144,43 +148,42 @@ class Death_Events():
         # give injuries to other cat if tagged as such
         if "other_cat_injured" in death_cause.tags:
             involved_cats.append(other_cat.ID)
-            print("TAG DETECTED", other_cat.name)
             for tag in death_cause.tags:
                 if tag in INJURIES:
                     other_cat.get_injured(tag)
-                    print("INJURED IN EVENT")
 
         # handle leader lives
+        additional_event_text = ""
         if cat.status == "leader" and "other_cat_death" not in death_cause.tags:
             if "all_lives" in death_cause.tags:
                 game.clan.leader_lives -= 10
-                cat.die(body)
+                additional_event_text += cat.die(body)
                 cat.died_by.append(history_text)
             elif "murder" in death_cause.tags or "some_lives" in death_cause.tags:
                 if game.clan.leader_lives > 2:
                     game.clan.leader_lives -= random.randrange(1, current_lives - 1)
-                    cat.die(body)
+                    additional_event_text += cat.die(body)
                     cat.died_by.append(history_text)
                 else:
                     game.clan.leader_lives -= 1
-                    cat.die(body)
+                    additional_event_text += cat.die(body)
                     cat.died_by.append(history_text)
             else:
                 game.clan.leader_lives -= 1
-                cat.die(body)
+                additional_event_text += cat.die(body)
                 cat.died_by.append(history_text)
         else:
             if ("multi_death" in death_cause.tags or "other_cat_death" in death_cause.tags) \
                     and other_cat.status != 'leader':
-                other_cat.die(body)
+                additional_event_text += other_cat.die(body)
                 other_cat.died_by.append(other_history_text)
             elif ("multi_death" in death_cause.tags or "other_cat_death" in death_cause.tags) \
                     and other_cat.status == 'leader':
                 game.clan.leader_lives -= 1
-                other_cat.die(body)
+                additional_event_text += other_cat.die(body)
                 other_cat.died_by.append(other_history_text)
             if "other_cat_death" not in death_cause.tags:
-                cat.die(body)
+                additional_event_text += cat.die(body)
                 cat.died_by.append(history_text)
 
         if "rel_down" in death_cause.tags:
@@ -194,7 +197,7 @@ class Death_Events():
         types = ["birth_death"]
         if "other_clan" in death_cause.tags:
             types.append("other_clans")
-        game.cur_events_list.append(Single_Event(death_text, types, involved_cats))
+        game.cur_events_list.append(Single_Event(death_text + " " + additional_event_text, types, involved_cats))
         # game.birth_death_events_list.append(death_text)
 
     def handle_relationship_changes(self, cat, death_cause, other_cat):
