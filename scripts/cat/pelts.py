@@ -7,7 +7,7 @@ class SingleColour():
     white_patches = None
 
     def __init__(self, colour, length):
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
         self.white = self.colour == "white"
 
@@ -19,7 +19,7 @@ class TwoColour():
     sprites = {1: 'single', 2: 'white'}
 
     def __init__(self, colour, length):
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
         self.white = True
 
@@ -32,7 +32,7 @@ class SpeckledTabby():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
 
     def __repr__(self):
@@ -47,7 +47,7 @@ class Stain():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
 
     def __repr__(self):
@@ -62,7 +62,7 @@ class VoiSokoke():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
 
     def __repr__(self):
@@ -77,7 +77,7 @@ class Tabby():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
 
     def __repr__(self):
@@ -92,7 +92,7 @@ class Marbled():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
 
     def __repr__(self):
@@ -107,7 +107,7 @@ class Rosette():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
 
     def __repr__(self):
@@ -122,7 +122,7 @@ class Smoke():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
 
     def __repr__(self):
@@ -137,7 +137,7 @@ class Ticked():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
 
     def __repr__(self):
@@ -152,7 +152,7 @@ class Speckled():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
     def __repr__(self):
         if self.white:
@@ -166,7 +166,7 @@ class Bengal():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = colour
+        self.colour = choice(pelt_colours_modded)
         self.length = length
     def __repr__(self):
         if self.white:
@@ -180,7 +180,7 @@ class Mackerel():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST', 'PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM', 'LIGHTBROWN', 'BROWN', 'DARKBROWN', 'BLACK'])
+        self.colour = choice(pelt_colours)
         self.length = length
     def __repr__(self):
         if self.white:
@@ -194,7 +194,7 @@ class Classic():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST', 'PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM', 'LIGHTBROWN', 'BROWN', 'DARKBROWN', 'BLACK'])
+        self.colour = choice(pelt_colours)
         self.length = length
     def __repr__(self):
         if self.white:
@@ -208,7 +208,7 @@ class Sokoke():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST', 'PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM', 'LIGHTBROWN', 'BROWN', 'DARKBROWN', 'BLACK'])
+        self.colour = choice(pelt_colours)
         self.length = length
     def __repr__(self):
         if self.white:
@@ -222,7 +222,7 @@ class Agouti():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST', 'PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM', 'LIGHTBROWN', 'BROWN', 'DARKBROWN', 'BLACK'])
+        self.colour = choice(pelt_colours)
         self.length = length
     def __repr__(self):
         if self.white:
@@ -236,7 +236,7 @@ class Singlestripe():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST', 'PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM', 'LIGHTBROWN', 'BROWN', 'DARKBROWN', 'BLACK'])
+        self.colour = choice(pelt_colours)
         self.length = length
     def __repr__(self):
         if self.white:
@@ -276,9 +276,6 @@ class Calico():
 pelt_colours = [
     'WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST', 'PALEGINGER',
     'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM', 'LIGHTBROWN', 'BROWN', 'DARKBROWN', 'BLACK',
-    'PEACHYELLOW', 'MOCHA', 'METALLICBRONZE', 'WALNUT', 'FOX', 'ESPRESSO', 'PALEORANGE', 'PALECARMINE', 'CARAMEL', 'SIENNA', 'VANILLA', 'MUSHROOM',
-    'COFFEE', 'RICHGOLD', 'MOCCACCINO', 'PALEBROWN', 'DUSTYPINK', 'GRASSY', 'CLOUD', 'VAMPIRE', 'DOVE', 'GRAVEL', 'SLATEGREY', 'ICE',
-    'CADETBLUE', 'OLDLAVENDER', 'COMET', 'MIDGREY', 'IRONGREY', 'DUST', 'VIOLET', 'DARKVIOLET', 'BLUEVIOLET', 'CHARCOAL', 'ASH', 'PALEVIOLET',
 ]
 pelt_c_no_white = [
     'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST', 'PALEGINGER', 'GOLDEN',
@@ -294,6 +291,10 @@ pelt_c_no_bw = [
     'COFFEE', 'RICHGOLD', 'MOCCACCINO', 'PALEBROWN', 'DUSTYPINK', 'GRASSY', 'VAMPIRE', 'DOVE', 'GRAVEL', 'SLATEGREY',
     'CADETBLUE', 'OLDLAVENDER', 'COMET', 'MIDGREY', 'IRONGREY', 'DUST', 'VIOLET', 'DARKVIOLET', 'BLUEVIOLET', 'CHARCOAL', 'ASH', 'PALEVIOLET',
 ]
+pelt_colours_modded = ['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST', 'PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM', 'LIGHTBROWN', 'BROWN', 'DARKBROWN', 'BLACK',
+                       'PEACHYELLOW', 'MOCHA', 'METALLICBRONZE', 'WALNUT', 'FOX', 'ESPRESSO', 'PALEORANGE', 'PALECARMINE', 'CARAMEL', 'SIENNA', 'VANILLA', 'MUSHROOM',
+                       'COFFEE', 'RICHGOLD', 'MOCCACCINO', 'PALEBROWN', 'DUSTYPINK', 'GRASSY', 'CLOUD', 'VAMPIRE', 'DOVE', 'GRAVEL', 'SLATEGREY', 'ICE',
+                       'CADETBLUE', 'OLDLAVENDER', 'COMET', 'MIDGREY', 'IRONGREY', 'DUST', 'VIOLET', 'DARKVIOLET', 'BLUEVIOLET', 'CHARCOAL', 'ASH', 'PALEVIOLET']
 tortiepatterns = ['tortiesolid', 'tortietabby', 'tortiebengal', 'tortiemarbled', 'tortieticked',
     'tortiesmoke', 'tortierosette', 'tortiespeckled', 'tortiemackerel', 'tortieclassic',
     'tortiesokoke', 'tortieagouti', 'tortievoisokoke', 'tortiespeckledtabby', 'tortiecombo']
@@ -303,9 +304,6 @@ patch_colours = ['PALEONE', 'PALETWO', 'PALETHREE', 'PALEFOUR', 'GOLDONE', 'GOLD
 tortiebases = ['single', 'tabby', 'bengal', 'marbled', 'ticked', 'smoke', 'rosette', 'speckled', 'mackerel',
     'classic', 'sokoke', 'agouti', 'singlestripe', 'voisokoke', 'speckledtabby', 'stain']
 tortiecolours = ["SILVER", "GREY", "DARKGREY", "BLACK", "LIGHTBROWN", "BROWN", "DARKBROWN",
-                 "PEACHYELLOW", "MOCHA", "METALLICBRONZE", "WALNUT", "FOX", "ESPRESSO", "PALEORANGE", "PALECARMINE", "CARAMEL", "SIENNA", "VANILLA", "MUSHROOM",
-                 "COFFEE", "RICHGOLD", "MOCCACCINO", "PALEBROWN", "DUSTYPINK", "GRASSY", "VAMPIRE", "DOVE", "GRAVEL", "SLATEGREY",
-                 "CADETBLUE", "OLDLAVENDER", "COMET", "MIDGREY", "IRONGREY", "DUST", "VIOLET", "DARKVIOLET", "BLUEVIOLET", "CHARCOAL", "ASH", "PALEVIOLET",
                  ]
 
 pelt_length = ["short", "medium", "long"]
