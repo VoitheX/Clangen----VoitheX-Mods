@@ -9,11 +9,11 @@
     "chance_of_success": 45,
     "exp": 10, 
     "success_text": [
-            "As p_l looks into the puddle they are greeted by an intense vision. They drop what they are doing and race back to the camp to tell and consult with their leader.",
-            "They are greeted with the vision of a cat they had failed to save looking content and happy in StarClan saying that they were not at fault for their death. They feel unburdened and at peace after receiving that vision."
+            "As p_l looks into the puddle, they are greeted by an intense vision. They drop what they are doing and race back to the camp to tell and consult with their leader.",
+            "They are greeted with the vision of a cat they had failed to save looking content and happy in StarClan, saying that they were not at fault for their death. They feel unburdened and at peace after receiving that vision."
     ],
     "fail_text": [
-            "They gaze into the puddle only to see the weird ripples were caused by a small frog. p_l feels disappointed because they really could have used some guidance from StarClan."
+            "They gaze into the puddle, only to see the weird ripples were caused by a small frog. p_l feels disappointed, because they really could have used some guidance from StarClan."
     ],
     "win_skills": ["None"],
     "win_trait": ["None"],
@@ -35,7 +35,7 @@
     "exp": 10,
     "success_text": [
         "app1 is focused and attentive. p_l is confident that next time when there is an emergency app1 will be able to find those herbs both under and above ground without them if needed.",
-        "As p_l is explaining why and where the herbs are growing, app1 lets out a shout. To p_l's surprise they have found a previously unknown patch of an uncommon herb. Stunned and filled with pride that they found and recognized the herb, p_l promises them the first pick of fresh kill.",
+        "As p_l is explaining why and where the herbs are growing, app1 lets out a shout. To p_l's surprise they have found a previously unknown patch of an uncommon herb. Stunned and filled with pride that they found and recognized the herb, p_l promises them the first pick of fresh-kill.",
         null,
         null
     ],
@@ -82,7 +82,7 @@
     "biome": "plains",
     "season": "newleaf",
     "tags": ["med_cat", "warrior", "random_herbs", "romantic", "platonic", "respect", "p_l_to_r_c", "s_c_to_r_c"],
-    "intro_text": "p_l goes out with a warrior escort, both for safety as they look for Newleaf's fresh buds, and for carrying capacity should they find anything.",
+    "intro_text": "p_l goes out with a warrior escort, both for safety as they look for newleaf's fresh buds, and for carrying capacity should they find anything.",
     "decline_text": "Their escort is called away on a different mission, and p_l decides to reorganize the herb store instead.",
     "chance_of_success": 60,
     "exp": 10,
@@ -109,7 +109,7 @@
     "biome": "plains",
     "season": "newleaf",
     "tags": ["med_cat", "med_only", "random_herbs", "romantic", "platonic", "respect", "p_l_to_r_c", "s_c_to_r_c"],
-    "intro_text": "p_l heads out, leading a patrol of medicine cats to go find the buds of Newleaf.",
+    "intro_text": "p_l heads out, leading a patrol of medicine cats to go find the buds of newleaf.",
     "decline_text": ". . . And they're called back almost immediately, as one of the elders starts hacking up something.",
     "chance_of_success": 60,
     "exp": 10,
@@ -136,7 +136,7 @@
     "biome": "plains",
     "season": "greenleaf",
     "tags": ["med_cat", "warrior", "random_herbs", "romantic", "platonic", "respect", "p_l_to_r_c", "s_c_to_r_c"],
-    "intro_text": "p_l goes out with a warrior escort, both for safety as they look to take advantage of the Greenleaf growing season, and for carrying capacity should they find anything.",
+    "intro_text": "p_l goes out with a warrior escort, both for safety as they look to take advantage of the greenleaf growing season, and for carrying capacity should they find anything.",
     "decline_text": "Their escort is called away on a different mission, and p_l decides to reorganize the herb store instead.",
     "chance_of_success": 60,
     "exp": 10,
@@ -163,7 +163,7 @@
     "biome": "plains",
     "season": "greenleaf",
     "tags": ["med_cat", "med_only", "random_herbs", "romantic", "platonic", "respect", "p_l_to_r_c", "s_c_to_r_c"],
-    "intro_text": "p_l heads out, leading a patrol of medicine cats to go find some of the bounty of Greenleaf.",
+    "intro_text": "p_l heads out, leading a patrol of medicine cats to go find some of the bounty of greenleaf.",
     "decline_text": ". . . And they're called back almost immediately, as one of the elders starts hacking up something.",
     "chance_of_success": 60,
     "exp": 10,
@@ -190,7 +190,7 @@
     "biome": "plains",
     "season": "leaf-fall",
     "tags": ["med_cat", "warrior", "random_herbs", "romantic", "platonic", "respect", "p_l_to_r_c", "s_c_to_r_c"],
-    "intro_text": "p_l goes out with a warrior escort, both for safety as they try to stock up under the clear Leaf-fall skies, and for carrying capacity should they find anything.",
+    "intro_text": "p_l goes out with a warrior escort, both for safety as they try to stock up under the clear leaf-fall skies, and for carrying capacity should they find anything.",
     "decline_text": "Their escort is called away on a different mission, and p_l decides to reorganize the herb store instead.",
     "chance_of_success": 60,
     "exp": 10,
@@ -217,7 +217,7 @@
     "biome": "plains",
     "season": "leaf-fall",
     "tags": ["med_cat", "med_only", "random_herbs", "romantic", "platonic", "respect", "p_l_to_r_c", "s_c_to_r_c"],
-    "intro_text": "p_l heads out, leading a patrol of medicine cats to go stock up on the ripening harvest available in Leaf-fall.",
+    "intro_text": "p_l heads out, leading a patrol of medicine cats to go stock up on the ripening harvest available in leaf-fall.",
     "decline_text": ". . . And they're called back almost immediately, as one of the elders starts hacking up something.",
     "chance_of_success": 60,
     "exp": 10,
@@ -245,7 +245,7 @@
     "biome": "plains",
     "season": "leaf-bare",
     "tags": ["med_cat", "warrior", "random_herbs", "romantic", "platonic", "respect", "p_l_to_r_c", "s_c_to_r_c"],
-    "intro_text": "p_l goes out with a warrior escort, both for safety as they look for sorely needed fresh supplies that have survived Leaf-bare so far, and for carrying capacity should they find anything.",
+    "intro_text": "p_l goes out with a warrior escort, both for safety as they look for sorely needed fresh supplies that have survived leaf-bare so far, and for carrying capacity should they find anything.",
     "decline_text": "Their escort is called away on a different mission, and p_l decides to reorganize the herb store instead.",
     "chance_of_success": 60,
     "exp": 10,
@@ -272,7 +272,7 @@
     "biome": "plains",
     "season": "leaf-bare",
     "tags": ["med_cat", "med_only", "random_herbs", "romantic", "platonic", "respect", "p_l_to_r_c", "s_c_to_r_c"],
-    "intro_text": "p_l heads out, leading a patrol of medicine cats to go find any fresh herbs that have survived Leaf-bare so far.",
+    "intro_text": "p_l heads out, leading a patrol of medicine cats to go find any fresh herbs that have survived leaf-bare so far.",
     "decline_text": ". . . And they're called back almost immediately, as one of the elders starts hacking up something.",
     "chance_of_success": 60,
     "exp": 10,
@@ -298,7 +298,7 @@
     "patrol_id": "pln_med_herbs1",
     "biome": "plains",
     "season": "Any",
-    "tags": ["med_cat", "apprentice", "med_only", "herb", "dandelion"],
+    "tags": ["med_cat", "apprentice", "med_only", "herb", "dandelion", "many_herbs1"],
     "intro_text": "p_l and app1 are going out to gather dandelions. app1 asks their mentor what they'll do if the rabbits have eaten all of it. p_l responds that they'll cross that river when they get to it.",
     "decline_text": "A cat grabs p_l's attention before they can leave.",
     "chance_of_success": 60,
@@ -330,7 +330,7 @@
     "exp": 10,
     "success_text": [
         "p_l is relieved to find that the mullein is still intact. They knock a stray weevil off of a leaf as they're gathering the herb.",
-        "Not only is the mullein intact and growing nicely, but there's also a nice patch of plantain growing just nearby. p_l purrs in satisfaction - seems like they've caught two prey in one blow on this trip."
+        "Not only is the mullein intact and growing nicely, but there's also a nice patch of plantain growing just nearby. p_l purrs in satisfaction - seems like they've caught two prey in one blow on this trip. They'll remember that plantain for later."
     ],
     "fail_text": [
         "p_l reaches the mullein plant that the Clan has used for many seasons and finds that it's being torn to shreds by bugs. They hiss in exasperation and bat some of the leaf bugs off the plant. Maybe it'll grow back next newleaf."
@@ -348,7 +348,7 @@
     "patrol_id": "pln_med_herbs3",
     "biome": "plains",
     "season": "Any",
-    "tags": ["med_cat", "warrior", "herb", "burdock", "dislike"],
+    "tags": ["med_cat", "warrior", "herb", "burdock", "dislike", "many_herbs1"],
     "intro_text": "p_l needs to go and gather some burdock root. They take along what warriors they can find around camp to help gather and carry the roots back.",
     "decline_text": "A cat grabs p_l's attention before they can leave.",
     "chance_of_success": 50,
