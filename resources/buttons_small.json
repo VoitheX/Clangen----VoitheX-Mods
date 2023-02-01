@@ -2382,7 +2382,7 @@
         "font":
         {
         "name": "notosans",
-        "size": "30"
+        "size": "15"
         },
         "misc":
         {
@@ -2999,8 +2999,8 @@
     "misc":
     {
       "shape": "rounded_rectangle",
-      "shape_corner_radius": "6",
-      "border_width": "4",
+      "shape_corner_radius": "3",
+      "border_width": "2",
       "shadow_width": "0"
     }
   },
@@ -3588,7 +3588,7 @@
         "font":
         {
         "name": "notosans",
-        "size": "26"
+        "size": "13"
         },
         "misc":
         {

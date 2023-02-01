@@ -15,7 +15,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "30"
+            "size": "15"
         }
     },
     "text_box": {
@@ -25,7 +25,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "30"
+            "size": "15"
         },
         "misc": {
             "border_width": "0",
@@ -40,7 +40,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "30"
+            "size": "15"
         },
         "misc": {
             "border_width": "0",
@@ -56,7 +56,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "30"
+            "size": "15"
         },
         "misc": {
             "border_width": "0",
@@ -71,7 +71,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "30"
+            "size": "15"
         },
         "misc": {
             "border_width": "0",
@@ -86,7 +86,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "30"
+            "size": "15"
         },
         "misc": {
             "border_width": "0",
@@ -102,7 +102,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "22"
+            "size": "11"
         },
         "misc": {
             "border_width": "0",
@@ -118,7 +118,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "22"
+            "size": "11"
         },
         "misc": {
             "border_width": "0",
@@ -133,7 +133,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "40"
+            "size": "20"
         },
         "misc": {
             "border_width": "0",
@@ -148,7 +148,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "30"
+            "size": "15"
         },
         "misc": {
             "border_width": "0",
@@ -165,14 +165,14 @@
         },
         "font": {
             "name": "notosans",
-            "size": "26"
+            "size": "13"
 
         },
         "misc": {
             "border_width": "0",
             "shadow_width": "0",
             "text_horiz_alignment": "left",
-            "padding": "10,14"
+            "padding": "5,7"
         }
     },
     "#history_tab_entry_box": {
@@ -183,13 +183,13 @@
         },
         "font": {
             "name": "notosans",
-            "size": "26"
+            "size": "13"
         },
         "misc": {
             "border_width": "0",
             "shadow_width": "0",
             "text_horiz_alignment": "left",
-            "padding": "10,14"
+            "padding": "5,7"
         }
     },
     "#clan_header_text_box": {
@@ -199,12 +199,13 @@
         },
         "font": {
             "name": "notosans",
-            "size": "30"
+            "size": "15"
         },
         "misc": {
             "border_width": "0",
             "shadow_width": "0",
-            "text_horiz_alignment": "center"
+            "text_horiz_alignment": "center",
+            "padding": "0,0"
         }
     },
     "#menu_header_text_box": {
@@ -214,7 +215,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "34"
+            "size": "17"
         },
         "misc": {
             "border_width": "0",
@@ -225,7 +226,7 @@
     "#patrol_text_box": {
         "misc": {
             "text_horiz_alignment": "left",
-            "padding": "10,10"
+            "padding": "5,5"
         }
     },
     "#header_text_box": {
@@ -235,7 +236,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "34"
+            "size": "17"
         },
         "misc": {
             "border_width": "0",
@@ -250,7 +251,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "34"
+            "size": "17"
         },
         "misc": {
             "border_width": "0",
@@ -265,29 +266,12 @@
         },
         "font": {
             "name": "notosans",
-            "size": "26"
+            "size": "13"
         },
         "misc": {
             "border_width": "0",
             "shadow_width": "0",
             "text_horiz_alignment": "center"
-        }
-    },
-    "#role_blurb": {
-        "colours": {
-            "dark_bg": "#00000000",
-            "normal_text": "#000000"
-        },
-        "font": {
-            "name": "notosans",
-            "size": "26"
-        },
-        "misc": {
-            "border_width": "0",
-            "shadow_width": "0",
-            "text_horiz_alignment": "center",
-            "text_vert_alignment": "center",
-            "line_spacing": "0.95"
         }
     },
     "#header_left": {
@@ -304,7 +288,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "28"
+            "size": "14"
         },
         "misc": {
             "border_width": "0",
@@ -320,11 +304,11 @@
         },
         "font": {
             "name": "notosans",
-            "size": "30"
+            "size": "15"
         },
         "misc": {
             "text_horiz_alignment": "left",
-            "padding": "40,40"
+            "padding": "20,20"
         }
     },
     "#search_entry_box": {
@@ -342,7 +326,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "26"
+            "size": "13"
         }
     },
     "#condition_details_text_box": {
@@ -352,13 +336,13 @@
         },
         "font": {
             "name": "notosans",
-            "size": "22"
+            "size": "11"
         },
         "misc": {
             "border_width": "0",
             "shadow_width": "0",
             "text_horiz_alignment": "center",
-            "padding": "20,20"
+            "padding": "10,10"
         }
     },
     "#med_den_log_box": {
@@ -369,7 +353,7 @@
         },
         "font": {
             "name": "notosans",
-            "size": "26"
+            "size": "13"
 
         },
         "misc": {
@@ -377,8 +361,25 @@
             "shadow_width": "0",
             "text_horiz_alignment": "left",
             "text_vert_alignment": "top",
-            "padding": "14, 0",
+            "padding": "7, 0",
             "text_vert_alignment_padding": "10"
+        }
+    },
+    "#role_blurb": {
+        "colours": {
+            "dark_bg": "#00000000",
+            "normal_text": "#000000"
+        },
+        "font": {
+            "name": "notosans",
+            "size": "13"
+        },
+        "misc": {
+            "border_width": "0",
+            "shadow_width": "0",
+            "text_horiz_alignment": "center",
+            "text_vert_alignment": "center",
+            "line_spacing": "0.95"
         }
     }
 }
