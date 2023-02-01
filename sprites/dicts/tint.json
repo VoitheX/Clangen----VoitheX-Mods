@@ -7,6 +7,7 @@
     "SILVER": "cool",
     "GREY": "monochrome",
     "DARKGREY": "monochrome",
+    "GHOST": "monochrome",
     "BLACK": "monochrome",
     "PALEGINGER": "warm",
     "GOLDEN": "warm",
@@ -49,8 +50,7 @@
     "CHARCOAL":  "monochrome", 
     "ASH": "cool", 
     "PALEVIOLET": "cool"
-    },
-  
+  },
   "possible_tints": {
     "basic": ["pink", "gray", "red", "black", "orange", "none"],
     "basic2": ["pink", "gray", "red", "black", "orange", "none"],
