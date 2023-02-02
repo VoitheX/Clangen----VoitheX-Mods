@@ -652,7 +652,7 @@ for a, i in enumerate(['VIOLET', 'DARKVIOLET', 'BLUEVIOLET', 'CHARCOAL', 'ASH', 
     sprites.make_group('speckled2greys', (a, 2), f'bengal{i}')
     sprites.make_group('speckled2greysextra', (a, 2), f'bengalextra{i}', sprites_y=2)
 #stains
-for a, i in enumerate(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'BLACK']):
+for a, i in enumerate(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST']):
     sprites.make_group('stains', (a, 0), f'stain{i}')
     sprites.make_group('stainsextra', (a, 0), f'stainextra{i}', sprites_y=2)
 for a, i in enumerate(['PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM']):
@@ -680,7 +680,7 @@ for a, i in enumerate(['VIOLET', 'DARKVIOLET', 'BLUEVIOLET', 'CHARCOAL', 'ASH', 
     sprites.make_group('greysstains', (a, 2), f'stain{i}')
     sprites.make_group('greysstainsextra', (a, 2), f'stainextra{i}', sprites_y=2)
 #voisokoke
-for a, i in enumerate(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'BLACK']):
+for a, i in enumerate(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST']):
     sprites.make_group('voisokoke', (a, 0), f'voisokoke{i}')
     sprites.make_group('voisokokeextra', (a, 0), f'voisokokeextra{i}', sprites_y=2)
 for a, i in enumerate(['PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM']):
