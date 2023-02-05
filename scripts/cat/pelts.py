@@ -180,7 +180,7 @@ class Mackerel():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(pelt_colours)
+        self.colour = colour
         self.length = length
     def __repr__(self):
         if self.white:
@@ -194,7 +194,7 @@ class Classic():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(pelt_colours)
+        self.colour = colour
         self.length = length
     def __repr__(self):
         if self.white:
@@ -208,7 +208,7 @@ class Sokoke():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(pelt_colours)
+        self.colour = colour
         self.length = length
     def __repr__(self):
         if self.white:
@@ -236,7 +236,7 @@ class Singlestripe():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(pelt_colours)
+        self.colour = colour
         self.length = length
     def __repr__(self):
         if self.white:
@@ -294,6 +294,9 @@ pelt_c_no_bw = [
 pelt_colours_modded = ['PEACHYELLOW', 'MOCHA', 'METALLICBRONZE', 'WALNUT', 'FOX', 'ESPRESSO', 'PALEORANGE', 'PALECARMINE', 'CARAMEL', 'SIENNA', 'VANILLA', 'MUSHROOM',
                        'COFFEE', 'RICHGOLD', 'MOCCACCINO', 'PALEBROWN', 'DUSTYPINK', 'GRASSY', 'CLOUD', 'VAMPIRE', 'DOVE', 'GRAVEL', 'SLATEGREY', 'ICE',
                        'CADETBLUE', 'OLDLAVENDER', 'COMET', 'MIDGREY', 'IRONGREY', 'DUST', 'VIOLET', 'DARKVIOLET', 'BLUEVIOLET', 'CHARCOAL', 'ASH', 'PALEVIOLET']
+
+
+
 tortiepatterns = ['tortiesolid', 'tortietabby', 'tortiebengal', 'tortiemarbled', 'tortieticked',
     'tortiesmoke', 'tortierosette', 'tortiespeckled', 'tortiemackerel', 'tortieclassic',
     'tortiesokoke', 'tortieagouti', 'tortievoisokoke', 'tortiespeckledtabby', 'tortiecombo']
