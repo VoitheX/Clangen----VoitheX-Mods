@@ -222,7 +222,7 @@ class Agouti():
 
     def __init__(self, colour, white, length):
         self.white = white  # boolean; does cat have white on it or no
-        self.colour = choice(pelt_colours)
+        self.colour = colour
         self.length = length
     def __repr__(self):
         if self.white:

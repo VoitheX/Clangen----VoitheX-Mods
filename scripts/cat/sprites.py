@@ -270,6 +270,7 @@ for x in [
     'tabby2greys', 'tabby2greysextra', 'tickedgreys', 'tickedgreysextra', 'speckled2greys', 'speckled2greysextra',
     'stains', 'stainsextra', 'greysstains', 'greysstainsextra', 'brownsstains', 'brownsstainsextra', 'tortiecombo', 'tortiecomboextra',
     'tortievoisokoke', 'tortievoisokokeextra', 'voisokoke', 'voisokokeextra', 'voisokokegreys', 'voisokokegreysextra', 'voisokokebrowns' , 'voisokokebrownsextra'
+    'brownsagouti', 'brownsextraagouti', 'greyagouti', 'greysextraagouti'
 
 ]:
     sprites.spritesheet(f"sprites/{x}.png", x)
@@ -747,6 +748,24 @@ for a, i in enumerate(['PALEGINGER', 'GOLDEN', 'GINGER', 'DARKGINGER', 'CREAM'])
 for a, i in enumerate(['LIGHTBROWN', 'BROWN', 'DARKBROWN', 'BLACK']):
     sprites.make_group('agouticolours', (a, 2), f'agouti{i}')
     sprites.make_group('agoutiextra', (a, 2), f'agoutiextra{i}', sprites_y=2)
+for a, i in enumerate(['PEACHYELLOW', 'MOCHA', 'METALLICBRONZE', 'WALNUT', 'FOX', 'ESPRESSO']):
+    sprites.make_group('brownsagouti', (a, 0), f'agouti{i}')
+    sprites.make_group('brownsextraagouti', (a, 0), f'agoutiextra{i}', sprites_y=2)
+for a, i in enumerate(['PALEORANGE', 'PALECARMINE', 'CARAMEL', 'SIENNA', 'VANILLA', 'MUSHROOM']):
+    sprites.make_group('brownsagouti', (a, 1), f'agouti{i}')
+    sprites.make_group('brownsextraagouti', (a, 1), f'agoutiextra{i}', sprites_y=2)
+for a, i in enumerate(['COFFEE', 'RICHGOLD', 'MOCCACCINO', 'PALEBROWN', 'DUSTYPINK', 'GRASSY']):
+    sprites.make_group('brownsagouti', (a, 2), f'agouti{i}')
+    sprites.make_group('brownsextraagouti', (a, 2), f'agoutiextra{i}', sprites_y=2)
+for a, i in enumerate(['CLOUD', 'VAMPIRE', 'DOVE', 'GRAVEL', 'SLATEGREY', 'ICE']):
+    sprites.make_group('greyagouti', (a, 0), f'agouti{i}')
+    sprites.make_group('greyextraagouti', (a, 0), f'agoutiextra{i}', sprites_y=2)
+for a, i in enumerate(['CADETBLUE', 'OLDLAVENDER', 'COMET', 'MIDGREY', 'IRONGREY', 'DUST']):
+    sprites.make_group('greyagouti', (a, 1), f'agouti{i}')
+    sprites.make_group('greyextraagouti', (a, 1), f'agoutiextra{i}', sprites_y=2)
+for a, i in enumerate(['VIOLET', 'DARKVIOLET', 'BLUEVIOLET', 'CHARCOAL', 'ASH', 'PALEVIOLET']):
+    sprites.make_group('greyagouti', (a, 2), f'agouti{i}')
+    sprites.make_group('greyextraagouti', (a, 2), f'agoutiextra{i}', sprites_y=2)
 # singlestripe
 for a, i in enumerate(['WHITE', 'PALEGREY', 'SILVER', 'GREY', 'DARKGREY', 'GHOST']):
     sprites.make_group('singlestripecolours', (a, 0), f'singlestripe{i}')
